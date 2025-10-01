@@ -1,15 +1,24 @@
 package com.prova.backend.todo.domain.model;
 
+import jakarta.persistence.*;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
+import java.util.UUID;
 
+@Entity(name= "tarefa")
+@Table(name="tarefa")
 public class Tarefa {
 
-  private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.UUID)
+  private UUID id;
   private String nome;
   private String descricao;
+  @Enumerated(EnumType.STRING)
   private Propriedade propriedade;
+  @Enumerated(EnumType.STRING)
   private Situacao situacao;
   private LocalDate dataPrevistaConclusao;
   private LocalDateTime dataCriacao;
@@ -41,7 +50,7 @@ public class Tarefa {
     this.dataCriacao = LocalDateTime.now();
   }
 
-  public Long getId() {
+  public UUID getId() {
     return id;
   }
 
