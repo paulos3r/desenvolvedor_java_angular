@@ -11,15 +11,17 @@ import java.util.Objects;
 public class Tarefa {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.UUID)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   private String nome;
   private String descricao;
   @Enumerated(EnumType.STRING)
-  private Propriedade propriedade;
+  private Prioridade prioridade;
   @Enumerated(EnumType.STRING)
   private Situacao situacao;
+  @Column(name = "data_prevista_conclusao")
   private LocalDate dataPrevistaConclusao;
+  @Column(name = "data_criacao")
   private LocalDateTime dataCriacao;
 
   public Tarefa() {
@@ -32,17 +34,17 @@ public class Tarefa {
    * @param propriedade
    * @param dataPrevistaConclusao
    */
-  public Tarefa(String nome, String descricao, Propriedade propriedade, LocalDate dataPrevistaConclusao) {
+  public Tarefa(String nome, String descricao, Prioridade propriedade, LocalDate dataPrevistaConclusao) {
     if (nome==null || nome.isEmpty()){
       throw new IllegalArgumentException("Nome não pode ser nulo ou vazio");
     }
-    if(dataPrevistaConclusao.isAfter(LocalDate.now())){
+    if(dataPrevistaConclusao.isBefore(LocalDate.now())){
       throw new IllegalArgumentException("Date – Obrigatório, não pode ser anterior à data atual");
     }
 
     this.nome = nome;
     this.descricao = descricao;
-    this.propriedade = propriedade;
+    this.prioridade = propriedade;
     this.situacao = Situacao.ABERTA;
     this.dataPrevistaConclusao = dataPrevistaConclusao;
     this.dataCriacao = LocalDateTime.now();
@@ -56,22 +58,19 @@ public class Tarefa {
   }
 
   public void alterarDescricao(String descricao){
-    if(descricao==null || descricao.isEmpty()){
-      throw new IllegalArgumentException("descrição não pode ser vazio");
-    }
     this.descricao=descricao;
   }
 
-  public void alterarPropriedade(Propriedade propriedade) {
-    if (propriedade==null){
+  public void alterarPrioridade(Prioridade prioridade) {
+    if (prioridade==null){
       throw new IllegalArgumentException("Propiedade não pode ser nulo");
     }
-    this.propriedade=propriedade;
+    this.prioridade =prioridade;
   }
 
   public void alterarDataPrevistaConclusao(LocalDate dataPrevistaConclusao){
 
-    if(dataPrevistaConclusao.isAfter(LocalDate.now())){
+    if(dataPrevistaConclusao.isBefore(LocalDate.now())){
       throw new IllegalArgumentException("Date não pode ser anterior à data atual");
     }
 
@@ -97,8 +96,8 @@ public class Tarefa {
     return descricao;
   }
 
-  public Propriedade getPropriedade() {
-    return propriedade;
+  public Prioridade getPrioridade() {
+    return prioridade;
   }
 
   public Situacao getSituacao() {
@@ -116,12 +115,12 @@ public class Tarefa {
   @Override
   public boolean equals(Object o) {
     if (!(o instanceof Tarefa tarefa)) return false;
-    return Objects.equals(id, tarefa.id) && Objects.equals(nome, tarefa.nome) && Objects.equals(descricao, tarefa.descricao) && propriedade == tarefa.propriedade && situacao == tarefa.situacao && Objects.equals(dataPrevistaConclusao, tarefa.dataPrevistaConclusao) && Objects.equals(dataCriacao, tarefa.dataCriacao);
+    return Objects.equals(id, tarefa.id) && Objects.equals(nome, tarefa.nome) && Objects.equals(descricao, tarefa.descricao) && prioridade == tarefa.prioridade && situacao == tarefa.situacao && Objects.equals(dataPrevistaConclusao, tarefa.dataPrevistaConclusao) && Objects.equals(dataCriacao, tarefa.dataCriacao);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, nome, descricao, propriedade, situacao, dataPrevistaConclusao, dataCriacao);
+    return Objects.hash(id, nome, descricao, prioridade, situacao, dataPrevistaConclusao, dataCriacao);
   }
 
   @Override
@@ -130,7 +129,7 @@ public class Tarefa {
             "id=" + id +
             ", nome='" + nome + '\'' +
             ", descricao='" + descricao + '\'' +
-            ", propriedade=" + propriedade +
+            ", propriedade=" + prioridade +
             ", situacao=" + situacao +
             ", dataPrevistaConclusao=" + dataPrevistaConclusao +
             ", dataCriacao=" + dataCriacao +

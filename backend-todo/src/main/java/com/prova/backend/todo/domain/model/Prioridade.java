@@ -1,6 +1,6 @@
 package com.prova.backend.todo.domain.model;
 
-public enum Propriedade {
+public enum Prioridade {
   BAIXA,
   MEDIA,
   ALTA

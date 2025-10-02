@@ -1,20 +1,22 @@
 package com.prova.backend.todo.domain.service;
 
-import com.prova.backend.todo.domain.model.Propriedade;
+import com.prova.backend.todo.domain.model.Prioridade;
+import com.prova.backend.todo.domain.model.Situacao;
 import com.prova.backend.todo.domain.model.Tarefa;
 import com.prova.backend.todo.repository.TarefaRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class TarefaService {
 
-  private final List<String> PROPRIEDADE = List.of("BAIXA","MEDIA","ALTA");
+  private final List<String> PRIORIDADE = List.of("BAIXA","MEDIA","ALTA");
 
   private final TarefaRepository tarefaRepository;
 
@@ -22,8 +24,8 @@ public class TarefaService {
     this.tarefaRepository = tarefaRepository;
   }
 
-  public List<Tarefa> findAllTarefa(){
-    return this.tarefaRepository.findAll();
+  public Page< Tarefa > findAllTarefa(Pageable pageable){
+    return this.tarefaRepository.findAll(pageable);
   }
 
   public Tarefa findTarefa(Long id){
@@ -31,13 +33,13 @@ public class TarefaService {
   }
 
   @Transactional
-  public Tarefa createTarefa(String nome,String descricao,String propriedade,LocalDate dataPrevistaConclusao){
+  public Tarefa createTarefa(String nome,String descricao,String prioridade,LocalDate dataPrevistaConclusao){
 
-    if(!PROPRIEDADE.contains(propriedade.trim().toUpperCase())){
+    if(!PRIORIDADE.contains(prioridade.trim().toUpperCase())){
       throw new IllegalArgumentException("Propriedade não existe");
     }
 
-    Propriedade isPropriedade = Propriedade.valueOf(propriedade);
+    Prioridade isPropriedade = Prioridade.valueOf(prioridade);
 
     Tarefa tarefa = new Tarefa(nome, descricao, isPropriedade, dataPrevistaConclusao);
 
@@ -50,11 +52,11 @@ public class TarefaService {
   public Tarefa updateTarefa(Long id, String nome,String descricao,String propriedade,LocalDate dataPrevistaConclusao){
     Tarefa tarefa = tarefaRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("Não foi encontrado nem uma tarefa com esse id"));
 
-    Propriedade isPropriedade = Propriedade.valueOf(propriedade.trim().toUpperCase());
+    Prioridade isPrioridade = Prioridade.valueOf(propriedade.trim().toUpperCase());
 
     tarefa.alterarNome(nome);
     tarefa.alterarDescricao(descricao);
-    tarefa.alterarPropriedade(isPropriedade);
+    tarefa.alterarPrioridade(isPrioridade);
     tarefa.alterarDataPrevistaConclusao(dataPrevistaConclusao);
 
     tarefaRepository.save(tarefa);
@@ -67,4 +69,27 @@ public class TarefaService {
 
     tarefaRepository.delete(tarefa);
   }
+
+  @Transactional
+  public Tarefa completarTarefa(Long id){
+    Tarefa tarefa = tarefaRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("Cadastro não encontrado"));
+
+    if(tarefa.getSituacao()== Situacao.ABERTA || tarefa.getSituacao()==Situacao.PENDENTE){
+      tarefa.alterarSituacao(Situacao.CONCLUIDA);
+      return tarefaRepository.save(tarefa);
+    }else
+      throw new IllegalArgumentException("Não é possível concluir uma tarefa neste status.");
+  }
+
+  @Transactional
+  public Tarefa tarefaPendente(Long id){
+    Tarefa tarefa = tarefaRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("Cadastro não encontrado"));
+
+    if(tarefa.getSituacao()== Situacao.ABERTA || tarefa.getSituacao()==Situacao.CONCLUIDA){
+      tarefa.alterarSituacao(Situacao.PENDENTE);
+      return tarefaRepository.save(tarefa);
+    }else
+      throw new IllegalArgumentException("Não é possível concluir uma tarefa neste status.");
+  }
+
 }
