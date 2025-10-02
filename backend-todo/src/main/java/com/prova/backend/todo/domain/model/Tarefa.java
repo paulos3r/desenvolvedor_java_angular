@@ -31,10 +31,9 @@ public class Tarefa {
    * @param nome
    * @param descricao
    * @param propriedade
-   * @param situacao
    * @param dataPrevistaConclusao
    */
-  public Tarefa(String nome, String descricao, Propriedade propriedade, Situacao situacao, LocalDate dataPrevistaConclusao) {
+  public Tarefa(String nome, String descricao, Propriedade propriedade, LocalDate dataPrevistaConclusao) {
     if (nome==null || nome.isEmpty()){
       throw new IllegalArgumentException("Nome não pode ser nulo ou vazio");
     }
@@ -48,6 +47,43 @@ public class Tarefa {
     this.situacao = Situacao.ABERTA;
     this.dataPrevistaConclusao = dataPrevistaConclusao;
     this.dataCriacao = LocalDateTime.now();
+  }
+
+  public void alterarNome(String nome){
+    if(nome==null || nome.isEmpty()){
+      throw new IllegalArgumentException("Nome não pode ser vazio");
+    }
+    this.nome=nome;
+  }
+
+  public void alterarDescricao(String descricao){
+    if(descricao==null || descricao.isEmpty()){
+      throw new IllegalArgumentException("descrição não pode ser vazio");
+    }
+    this.descricao=descricao;
+  }
+
+  public void alterarPropriedade(Propriedade propriedade) {
+    if (propriedade==null){
+      throw new IllegalArgumentException("Propiedade não pode ser nulo");
+    }
+    this.propriedade=propriedade;
+  }
+
+  public void alterarDataPrevistaConclusao(LocalDate dataPrevistaConclusao){
+
+    if(dataPrevistaConclusao.isAfter(LocalDate.now())){
+      throw new IllegalArgumentException("Date não pode ser anterior à data atual");
+    }
+
+    this.dataPrevistaConclusao=dataPrevistaConclusao;
+  }
+
+  public void alterarSituacao(Situacao situacao) {
+    if (situacao==null){
+      throw new IllegalArgumentException("Situação não pode ser nulo");
+    }
+    this.situacao=situacao;
   }
 
   public UUID getId() {
