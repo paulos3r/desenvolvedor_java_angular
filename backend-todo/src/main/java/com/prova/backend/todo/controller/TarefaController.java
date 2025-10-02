@@ -19,7 +19,7 @@ import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/tarefa")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 public class TarefaController {
   @Autowired
   private final TarefaService tarefaService;
@@ -144,7 +144,7 @@ public class TarefaController {
     }
   }
 
-  @DeleteMapping("/{id}")
+  @DeleteMapping("{id}")
   public ResponseEntity<Object> deleteTarefaById(@PathVariable Long id){
     try{
       tarefaService.deleteTarefaById(id);
