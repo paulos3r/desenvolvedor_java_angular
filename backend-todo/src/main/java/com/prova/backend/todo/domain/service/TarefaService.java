@@ -22,12 +22,12 @@ public class TarefaService {
     this.tarefaRepository = tarefaRepository;
   }
 
-  public List<Tarefa> findTarefa(){
+  public List<Tarefa> findAllTarefa(){
     return this.tarefaRepository.findAll();
   }
 
-  public Optional<Tarefa> findAllTarefa(Long id){
-    return this.tarefaRepository.findById(id);
+  public Tarefa findTarefa(Long id){
+    return this.tarefaRepository.findById(id).orElseThrow(()->new EntityNotFoundException("Tarefa não foi encontrada"));
   }
 
   @Transactional
@@ -62,7 +62,7 @@ public class TarefaService {
   }
 
   @Transactional
-  private void deleteTarefa(Long id){
+  public void deleteTarefaById(Long id){
     Tarefa tarefa = tarefaRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("Não foi encontrado nem uma tarefa com esse id"));
 
     tarefaRepository.delete(tarefa);

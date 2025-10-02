@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
-import java.util.UUID;
 
 @Entity(name= "tarefa")
 @Table(name="tarefa")
@@ -13,7 +12,7 @@ public class Tarefa {
 
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
-  private UUID id;
+  private Long id;
   private String nome;
   private String descricao;
   @Enumerated(EnumType.STRING)
@@ -27,7 +26,7 @@ public class Tarefa {
   }
 
   /**
-   * Criação de um novo to-do
+   *
    * @param nome
    * @param descricao
    * @param propriedade
@@ -86,7 +85,7 @@ public class Tarefa {
     this.situacao=situacao;
   }
 
-  public UUID getId() {
+  public Long getId() {
     return id;
   }
 
