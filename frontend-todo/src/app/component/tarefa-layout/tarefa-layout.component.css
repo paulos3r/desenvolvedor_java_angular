@@ -1,0 +1,32 @@
+/* cores
+primary: #7001fd; or #131842
+text-color: #555
+secondary:  #1e2772
+gray: #eee;
+*/
+main{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+main section{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+main .main-section{
+  gap:8;
+
+  flex-grow:  1;
+  background: #eee;
+}
+
+main .form-section{
+  flex-grow: 0.3;
+}

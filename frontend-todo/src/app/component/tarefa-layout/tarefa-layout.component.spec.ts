@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FormularioComponent } from './formulario.component';
+import { TarefaLayoutComponent } from './tarefa-layout.component';
 
-describe('FormularioComponent', () => {
-  let component: FormularioComponent;
-  let fixture: ComponentFixture<FormularioComponent>;
+describe('TarefaLayoutComponent', () => {
+  let component: TarefaLayoutComponent;
+  let fixture: ComponentFixture<TarefaLayoutComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FormularioComponent]
+      imports: [TarefaLayoutComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(FormularioComponent);
+    fixture = TestBed.createComponent(TarefaLayoutComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
