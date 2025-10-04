@@ -24,9 +24,38 @@ main .main-section{
   gap:8;
 
   flex-grow:  1;
-  background: #eee;
+  background: #fbf6e2;
 }
 
 main .form-section{
   flex-grow: 0.3;
+  padding: 0 35px;
+  gap:10px;
+}
+
+.form-section h2{
+  font-size: 20px;
+  font-weight: bold;
+  padding: 0 35px;
+  margin-bottom: 45px;
+}
+.form-section button{
+  width: 100%;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  border: none;
+  background: transparent;
+  padding: 12px 24px;
+  cursor: pointer;
+}
+.form-section .btn-primary{
+  background-color: #131842;
+  color: #fbf6e2;
+}
+
+.form-section .btn-secundary{
+  background-color:#fbf6e2;
+  border: 1px solid #131842;
+  color: #131842;
 }
