@@ -1,11 +1,11 @@
 import { Component, Input } from '@angular/core';
-import { ɵEmptyOutletComponent } from "../../../../node_modules/@angular/router/router_module.d-Bx9ArA6K";
 
 @Component({
   selector: 'app-tarefa-layout',
-  imports: [ɵEmptyOutletComponent],
+  imports: [],
   templateUrl: './tarefa-layout.component.html',
-  styleUrl: './tarefa-layout.component.css'
+  styleUrl: './tarefa-layout.component.css',
+  standalone:true
 })
 export class TarefaLayoutComponent {
   @Input() title: string="";
