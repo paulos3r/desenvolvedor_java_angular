@@ -2,11 +2,23 @@
   title="Cadastro de tarefa"
   textBtnPrimary="Cadastrar"
   textBtnSecundary="Excluir"
+  (submit)="submit()"
+  (navigate)="navigate()"
 >
 
   <form [formGroup]="tarefaForm">
-    <app-primary-input formName="nome" type="text" label="nome" placeholder="nome da tarefa"></app-primary-input>
-    <app-primary-input formName="descricao" type="text" label="descricao"></app-primary-input>
+    <app-primary-input formControlName="nome" inputName="nome" type="text" label="nome" placeholder="nome da tarefa"></app-primary-input>
+    <app-primary-input formControlName="descricao" inputName="descricao" type="text" label="descricao"></app-primary-input>
+
+    <select name="prioridade" id="prioridade" required>
+      <option value="">Selecione</option>
+      <option value="BAIXA">BAIXA</option>
+      <option value="MEDIA">MEDIA</option>
+      <option value="ALTA">ALTA</option>
+    </select>
+    
+    <app-primary-input formControlName="situacao" inputName="situacao" type="text" label="situacao"></app-primary-input>
+    <app-primary-input formControlName="dataPrevistaConclusao" inputName="dataPrevistaConclusao" type="text" label="data de conclusao"></app-primary-input>
   </form>
 
 </app-tarefa-layout>

@@ -3,6 +3,6 @@ import { TarefaComponent } from './pages/tarefa/tarefa.component';
 
 export const routes: Routes = [
   {
-    path:"tarefa", component:TarefaComponent
+    path:"", component:TarefaComponent
   }
 ];

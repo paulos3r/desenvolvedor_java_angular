@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-tarefa-layout',
@@ -11,4 +11,17 @@ export class TarefaLayoutComponent {
   @Input() title: string="";
   @Input() textBtnPrimary: string=""
   @Input() textBtnSecundary: string=""
+
+  @Output("submit") onSubmit = new EventEmitter();
+
+  @Output("navigate") onNavigate = new EventEmitter();
+
+  submit(){
+    this.onSubmit.emit();
+  }
+  navigate(){
+    this.onNavigate.emit();
+  }
+
+
 }

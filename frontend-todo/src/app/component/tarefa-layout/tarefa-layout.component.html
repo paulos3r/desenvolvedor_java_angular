@@ -4,11 +4,11 @@
 
     <ng-content></ng-content>
     
-    <button class="btn-primary" >{{textBtnPrimary}}</button>
+    <button class="btn-primary" (click)="submit()">{{textBtnPrimary}}</button>
     <div>
       <span>-- or --</span>
     </div>
-    <button class="btn-secundary">{{textBtnSecundary}}</button>
+    <button class="btn-secundary" (click)="navigate()">{{textBtnSecundary}}</button>
 
   </section>
   <section class="main-section">
