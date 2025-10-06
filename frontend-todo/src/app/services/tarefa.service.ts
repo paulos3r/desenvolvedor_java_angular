@@ -16,8 +16,8 @@ export class TarefaService {
   obterTarefa(): Observable<Tarefas[]>{
     return this.httpClient.get<Tarefas[]>(this.apiUrl);
   }
-  cadastrarTarefa(nome:string, descricao:string, propriedade:string, situacao:string, dataPrevistaConclusao:string){
-    return this.httpClient.post<TarefaResponse>("/tarefa", {nome,descricao,propriedade, situacao,dataPrevistaConclusao}).pipe(
+  cadastrarTarefa(nome:string, descricao:string, propriedade:string, dataPrevistaConclusao:string){
+    return this.httpClient.post<TarefaResponse>(this.apiUrl, {nome,descricao,propriedade,dataPrevistaConclusao}).pipe(
       tap( ( value)=>{
         sessionStorage.setItem("id",value.id),
         sessionStorage.setItem("nome",value.nome),

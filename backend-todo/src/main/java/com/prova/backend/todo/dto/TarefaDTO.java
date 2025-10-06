@@ -12,7 +12,7 @@ public record TarefaDTO(
   String nome,
   String descricao,
   @NotBlank(message = "propiedade não pode ser vazio ou nulo.")
-  String prioridade,
+  String propriedade,
   String situacao,
   @FutureOrPresent(message = "A data de previsão de conclusão não pode ser uma data no passado")
   LocalDate dataPrevistaConclusao,

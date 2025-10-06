@@ -36,7 +36,7 @@ public class TarefaController {
       Tarefa tarefa = tarefaService.createTarefa(
               tarefaDTO.nome(),
               tarefaDTO.descricao(),
-              tarefaDTO.prioridade(),
+              tarefaDTO.propriedade(),
               tarefaDTO.dataPrevistaConclusao()
       );
 
@@ -117,7 +117,7 @@ public class TarefaController {
               id,
               tarefaDTO.nome(),
               tarefaDTO.descricao(),
-              tarefaDTO.prioridade(),
+              tarefaDTO.propriedade(),
               tarefaDTO.dataPrevistaConclusao()
       );
 

@@ -1,25 +1,28 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TarefaLayoutComponent } from '../../component/tarefa-layout/tarefa-layout.component';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { PrimaryInputComponent } from '../../component/primary-input/primary-input.component';
 import { Route, Router } from '@angular/router';
 import { TarefaService } from '../../services/tarefa.service';
 import { Observable } from 'rxjs';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-tarefa',
+  standalone:true,
   imports: [TarefaLayoutComponent,
     ReactiveFormsModule,
-    PrimaryInputComponent
+    PrimaryInputComponent,
+    CommonModule
   ],
   providers: [
     TarefaService
   ],
   templateUrl: './tarefa.component.html',
-  styleUrl: './tarefa.component.css',
-  standalone:true
+  styleUrl: './tarefa.component.css'
+  
 })
-export class TarefaComponent {
+export class TarefaComponent{
 
   tarefaForm!: FormGroup;
 
@@ -31,19 +34,22 @@ export class TarefaComponent {
       id: new FormControl(''),
       nome: new FormControl('',[Validators.required]),
       descricao: new FormControl(''),
-      prioridade: new FormControl('',[Validators.required]),
+      propriedade: new FormControl('',[Validators.required]),
       situacao: new FormControl('',[Validators.required]),
       dataPrevistaConclusao: new FormControl('',[Validators.required])
-    })
+    });
+
+    this.tarefaForm.valueChanges.subscribe(v=>console.log('form.valueChanges',v));
   }
 
   submit(){
+
+    console.log(this.tarefaForm.value.propriedade)
 
     this.tarefaService.cadastrarTarefa(
       this.tarefaForm.value.nome,
       this.tarefaForm.value.descricao,
       this.tarefaForm.value.propriedade,
-      this.tarefaForm.value.situacao,
       this.tarefaForm.value.dataPrevistaConclusao
     ).subscribe({
       next: () => console.log("sucesso"),
