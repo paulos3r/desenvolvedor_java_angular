@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
-import { Tarefas } from '../entidade/tarefa';
 import { TarefaResponse } from '../types/tarefa-response.type';
 
 @Injectable({
@@ -13,8 +12,8 @@ export class TarefaService {
 
   constructor(private httpClient: HttpClient) {}
 
-  obterTarefa(): Observable<Tarefas[]>{
-    return this.httpClient.get<Tarefas[]>(this.apiUrl);
+  obterTarefa(): Observable<TarefaResponse[]>{
+    return this.httpClient.get<TarefaResponse[]>(this.apiUrl);
   }
   cadastrarTarefa(nome:string, descricao:string, propriedade:string, dataPrevistaConclusao:string){
     return this.httpClient.post<TarefaResponse>(this.apiUrl, {nome,descricao,propriedade,dataPrevistaConclusao}).pipe(
@@ -28,5 +27,13 @@ export class TarefaService {
         sessionStorage.setItem("dataCriacao",value.dataCriacao)
       })
     )
+  }
+  
+  atualizarTarefa(id:string, t:Partial<TarefaResponse>){
+    return this.httpClient.put(`${this.apiUrl}/${id}`,t);
+  }
+
+  excluirTarefa(id:string){
+    return this.httpClient.delete(`${this.apiUrl}/${id}`)
   }
 }

@@ -1,10 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { TarefaLayoutComponent } from '../../component/tarefa-layout/tarefa-layout.component';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { PrimaryInputComponent } from '../../component/primary-input/primary-input.component';
 import { Route, Router } from '@angular/router';
 import { TarefaService } from '../../services/tarefa.service';
-import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -57,8 +56,19 @@ export class TarefaComponent{
     })
 
   }
+
   navigate(){
     console.log(this.tarefaForm.value)
   }
 
+  tarefas:any[]=[];
+
+  buscarTarefas(){
+    this.tarefaService.obterTarefa().subscribe({
+      next:( data) =>{
+        this.tarefas=data;
+      },
+      error: (err)=> console.error("errro ao buscar tarefa:", err)
+    })
+  }
 }

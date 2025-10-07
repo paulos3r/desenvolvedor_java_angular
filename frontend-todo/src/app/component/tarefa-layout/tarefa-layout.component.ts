@@ -1,8 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { CommonModule, NgIf } from "../../../../node_modules/@angular/common/common_module.d-NEF7UaHr";
 
 @Component({
   selector: 'app-tarefa-layout',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './tarefa-layout.component.html',
   styleUrl: './tarefa-layout.component.css',
   standalone:true
@@ -22,6 +23,4 @@ export class TarefaLayoutComponent {
   navigate(){
     this.onNavigate.emit();
   }
-
-
 }
