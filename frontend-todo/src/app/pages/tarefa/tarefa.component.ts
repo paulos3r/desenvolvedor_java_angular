@@ -62,6 +62,10 @@ export class TarefaComponent{
     console.log(this.tarefaForm.value)
   }
 
+  remove(){
+    this.tarefaService.excluirTarefa(this.tarefaForm.value.id);
+  }
+
   tarefas:TarefaResponse[]=[];
 
   buscarTarefas(){

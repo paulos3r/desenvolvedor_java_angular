@@ -21,11 +21,16 @@ export class TarefaLayoutComponent {
 
   @Output("navigate") onNavigate = new EventEmitter();
 
+  @Output("remove") onRemove = new EventEmitter();
+
   submit(){
     this.onSubmit.emit();
   }
   navigate(){
     this.onNavigate.emit();
+  }
+  remove(){
+    this.onRemove.emit();
   }
 
   private tarefaService = inject(TarefaService);

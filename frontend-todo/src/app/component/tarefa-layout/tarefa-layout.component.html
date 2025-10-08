@@ -24,12 +24,11 @@
     <ul>
       @for (t of tarefas; track t.nome) {
         <li>
-          <strong>{{ t.nome }}</strong> - {{ t.prioridade }}
-          <br>
-          {{ t.descricao || 'Sem descrição' }}
-          <br>
+          <strong>{{ t.nome }}</strong> - {{ t.descricao || 'sem descricao' }} -
           <em>Prevista para: {{ t.dataPrevistaConclusao | date }}</em>
+          <em>inserção: {{ t.dataCriacao }} </em>
           <hr>
+          <button type="button" (click)="remove()" >excluir</button>
         </li>
       }
     </ul>
