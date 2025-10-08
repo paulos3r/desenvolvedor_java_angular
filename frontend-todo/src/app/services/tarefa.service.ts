@@ -15,6 +15,7 @@ export class TarefaService {
   obterTarefa(): Observable<TarefaResponse[]>{
     return this.httpClient.get<TarefaResponse[]>(this.apiUrl);
   }
+  
   cadastrarTarefa(nome:string, descricao:string, propriedade:string, dataPrevistaConclusao:string){
     return this.httpClient.post<TarefaResponse>(this.apiUrl, {nome,descricao,propriedade,dataPrevistaConclusao}).pipe(
       tap( ( value)=>{

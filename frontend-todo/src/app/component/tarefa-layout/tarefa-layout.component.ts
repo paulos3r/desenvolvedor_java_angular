@@ -1,5 +1,9 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { CommonModule, NgIf } from "../../../../node_modules/@angular/common/common_module.d-NEF7UaHr";
+import { CommonModule } from '@angular/common';
+import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import { TarefaService } from '../../services/tarefa.service';
+import { Observable } from 'rxjs';
+import { TarefaResponse } from '../../types/tarefa-response.type';
+
 
 @Component({
   selector: 'app-tarefa-layout',
@@ -23,4 +27,8 @@ export class TarefaLayoutComponent {
   navigate(){
     this.onNavigate.emit();
   }
+
+  private tarefaService = inject(TarefaService);
+
+  tarefas$:Observable<any[]> = this.tarefaService.obterTarefa();
 }

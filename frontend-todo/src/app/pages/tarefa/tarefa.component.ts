@@ -5,6 +5,7 @@ import { PrimaryInputComponent } from '../../component/primary-input/primary-inp
 import { Route, Router } from '@angular/router';
 import { TarefaService } from '../../services/tarefa.service';
 import { CommonModule } from '@angular/common';
+import { TarefaResponse } from '../../types/tarefa-response.type';
 
 @Component({
   selector: 'app-tarefa',
@@ -61,14 +62,19 @@ export class TarefaComponent{
     console.log(this.tarefaForm.value)
   }
 
-  tarefas:any[]=[];
+  tarefas:TarefaResponse[]=[];
 
   buscarTarefas(){
     this.tarefaService.obterTarefa().subscribe({
       next:( data) =>{
+        console.log(data);
         this.tarefas=data;
       },
       error: (err)=> console.error("errro ao buscar tarefa:", err)
-    })
+    });
+  }
+
+  ngOnInit(): void {
+    this.buscarTarefas();
   }
 }

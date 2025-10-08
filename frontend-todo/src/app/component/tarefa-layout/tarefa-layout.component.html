@@ -13,29 +13,30 @@
   </section>
   <section class="main-section">
 
+    <!--inicio da lista de tarefas-->
+
     <h2>Lista de Tarefas</h2>
 
-    <!-- inicio da lista de tarefas
-    
-<h2>Lista de Tarefas</h2>
+@let tarefas = tarefas$ | async;
 
-<div *ngIf="tarefas$ | async as tarefas; else carregando">
-  <ul>
-    <li *ngFor="let t of tarefas">
-      <strong>{{ t.nome }}</strong> - {{ t.prioridade }}  
-      <br>
-      {{ t.descricao || 'Sem descrição' }}
-      <br>
-      <em>Prevista para: {{ t.dataPrevistaConclusao | date }}</em>
-      <hr>
-    </li>
-  </ul>
-</div>
-
-  <ng-template #carregando>
-    <p>Carregando tarefas...</p>
-  </ng-template>
-
-      fim da lista de tarefas -->
+@if (tarefas === null) {
+  <div>
+    <ul>
+      @for (t of tarefas; track t.nome) {
+        <li>
+          <strong>{{ t.nome }}</strong> - {{ t.prioridade }}
+          <br>
+          {{ t.descricao || 'Sem descrição' }}
+          <br>
+          <em>Prevista para: {{ t.dataPrevistaConclusao | date }}</em>
+          <hr>
+        </li>
+      }
+    </ul>
+  </div>
+} @else {
+  <p>Carregando tarefas...</p>
+}
+      <!--fim da lista de tarefas -->
   </section>
 </main>
